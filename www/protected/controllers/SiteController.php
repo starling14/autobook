@@ -106,4 +106,26 @@ class SiteController extends Controller
 		Yii::app()->user->logout();
 		$this->redirect(Yii::app()->homeUrl);
 	}
+        
+        public function actionRegistration()
+	{
+		$model=new Registration;
+                $model->scenario = 'registration';
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['Registration']))
+		{
+			$model->attributes=$_POST['Registration'];
+			if($model->save()){
+                            Yii::app()->user->setFlash('registration','Ви успішно зареєструвалися!');
+                        }
+				//$this->redirect(array('view','id'=>$model->id));
+		}
+
+		$this->render('registration',array(
+			'model'=>$model,
+		));
+	}
 }
