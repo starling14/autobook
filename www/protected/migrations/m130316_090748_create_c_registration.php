@@ -6,12 +6,12 @@ class m130316_090748_create_c_registration extends CDbMigration
 	{
             $this->createTable('c_registration', array(
                 'id' => 'pk',
-                'login' => 'VARCHAR(100) NOT NULL',
+                'email' => 'VARCHAR(100) NOT NULL',
                 'password' => 'VARCHAR(50) NOT NULL',
-                'name' => 'VARCHAR(200) NOT NULL',
+                'name' => 'VARCHAR(50) NOT NULL',
                 'role' => 'int(1) NOT NULL',
                 'active' => 'int(1) NOT NULL',
-                'date' => 'string NOT NULL',
+                'date' => 'datetime NOT NULL',
                 
             ));
 	}

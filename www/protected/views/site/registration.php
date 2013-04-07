@@ -1,3 +1,4 @@
+<h1>Реєстрація</h1>
 <?php if(Yii::app()->user->hasFlash('registration')): ?>
 <div class="flash-success">
 	<?php echo Yii::app()->user->getFlash('registration'); ?>
@@ -18,14 +19,14 @@
     'enableAjaxValidation'=>false,
 )); ?>
 
-    <p class="note">Fields with <span class="required">*</span> are required.</p>
+    <p class="note">Поля з <span class="required">*</span> є обов'язковими для заповнення.</p>
 
     <?php echo $form->errorSummary($model); ?>
 
     <div class="row">
-        <?php echo $form->labelEx($model,'login'); ?>
-        <?php echo $form->textField($model,'login',array('size'=>60,'maxlength'=>100)); ?>
-        <?php echo $form->error($model,'login'); ?>
+        <?php echo $form->labelEx($model,'email'); ?>
+        <?php echo $form->textField($model,'email',array('size'=>60,'maxlength'=>100)); ?>
+        <?php echo $form->error($model,'email'); ?>
     </div>
 
     <div class="row">
@@ -54,7 +55,7 @@
     <?php endif; ?>
 
     <div class="row buttons">
-        <?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Реєстрація'); ?>
+        <?php echo CHtml::submitButton($model->isNewRecord ? 'Зареєструватися' : 'Реєстрація'); ?>
     </div>
 
 <?php $this->endWidget(); ?>

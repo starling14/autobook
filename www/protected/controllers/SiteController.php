@@ -116,16 +116,50 @@ class SiteController extends Controller
 		// $this->performAjaxValidation($model);
 
 		if(isset($_POST['Registration']))
-		{
+		{ 
 			$model->attributes=$_POST['Registration'];
 			if($model->save()){
                             Yii::app()->user->setFlash('registration','Ви успішно зареєструвалися!');
                         }
 				//$this->redirect(array('view','id'=>$model->id));
+                        
+                        //Відсилає підтвердження реєстрації на mail
+                        $findLogin= Registration::model()->findByAttributes(array('email'=>$model->email));
+                        //echo $findLogin->name;
+                        
+                        $email = Yii::app()->email;
+                        $email->to = $findLogin->email;
+                        $email->subject = 'Confirm your registration';
+                        $email->message = 'To confirm you ragistration click here <a href="http://autobook/index.php/site/confirm/'.$findLogin->id.'?password='.$findLogin->password.'">confirmation</a>';
+                        $email->send();
 		}
 
 		$this->render('registration',array(
 			'model'=>$model,
+		));
+	}
+        ///Ф-ї для підтвердження реєстрації
+        public function loadModel($id)
+	{
+		$model=Registration::model()->findByPk($id);
+		if($model===null)
+			throw new CHttpException(404,'The requested page does not exist.');
+		return $model;
+	}
+        
+        public function actionConfirm($id, $password)
+	{       
+		$model=$this->loadModel($id);
+
+                if($model->password==$password){
+                    $confirmUser= Registration::model()->updateByPk($id, array('active'=>'1'));
+                    $message = 'Вітаємо, ви підтвердили реєстрацію!';
+                }else{
+                    $message = 'Вам не вдалося підтвердити реєстрацію!';
+                }
+                
+		$this->render('confirm',array(
+			'message'=>$message,
 		));
 	}
 }

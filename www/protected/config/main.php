@@ -21,7 +21,7 @@ return array(
 
 	'modules'=>array(
 		// uncomment the following to enable the Gii tool
-		
+		'admin',
 		'gii'=>array(
 			'class'=>'system.gii.GiiModule',
 			'password'=>'111',
@@ -33,6 +33,12 @@ return array(
 
 	// application components
 	'components'=>array(
+            //dlia mailu (vziaz z jakogos saytu)
+                'email'=>array(
+                    'class'=>'application.extensions.email.Email',
+                    'delivery'=>'php', //Will use the php mailing function.  
+                    //May also be set to 'debug' to instead dump the contents of the email into the view
+                ),
 		'user'=>array(
 			// enable cookie-based authentication
 			'allowAutoLogin'=>true,
